@@ -1,4 +1,5 @@
 var http = require('http');
+var fs   = require('fs');
 var gpio = require('pi-gpio');
 
 var pinValue = 0;
@@ -21,26 +22,32 @@ var server = http.createServer(function(request, response) {
   var pinNumber = request.url.substring(1, request.url.indexOf('/', 1));
   var action    = request.url.substring(request.url.indexOf('/', 1) + 1);
 
+  try {
   switch (action) {
     case 'on':
       writePin(pinNumber, 1);
       response.write('set ' + pinNumber + ' on');
+	  response.end();
       break;
 
     case 'off':
       writePin(pinNumber, 0);
       response.write('set ' + pinNumber + ' off');
+	  response.end();
       break;
 
     case 'toggle':
       togglePin(pinNumber);
       response.write('set ' + pinNumber + ' to ' + pinValue);
+	  response.end();
       break;
 
     default:
-      response.write('nothing here');
+	  fs.createReadStream(__dirname + '/control.html').pipe(response);
   }
-
-  response.end();
+  } catch(e) {
+    response.write('invalid pin number');
+	response.end();
+  }
 });
 server.listen(8080);

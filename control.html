@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>idk lol, wut</title>
+
+<script>
+  var hostUrl = 'http://' + window.location.hostname + ':' + window.location.port;
+
+  function getPinNumber() {
+    return document.getElementById("textPinNumber").value;
+  }
+
+  function handleSendGetRequest(url) {
+    console.log('sending get request to ' + url);
+
+    var http = new XMLHttpRequest();
+    http.open('GET', url, false );
+    http.send(null);
+    return http.responseText;
+  }
+
+  function handleSetPin(pinNumber, action) {
+    var requestUrl = hostUrl + '/' + pinNumber + '/' + action;
+    var response   = handleSendGetRequest(requestUrl);
+
+    alert('server said: ' + response);
+  }
+</script>
+
+</head>
+<body>
+<input type="text"   value="pin number" id="textPinNumber">
+<input type="button" value="on"  onClick="handleSetPin(getPinNumber(), 'on')">
+<input type="button" value="off" onClick="handleSetPin(getPinNumber(), 'off')">
+<input type="button" value="toggle" onClick="handleSetPin(getPinNumber(), 'toggle')">
+</body>
+</html>
