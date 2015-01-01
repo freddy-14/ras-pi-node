@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>idk lol, wut</title>
+<title>Toggle Raspberry Pi Pins</title>
 
 <script>
   var hostUrl = 'http://' + window.location.hostname + ':' + window.location.port;
@@ -10,7 +10,7 @@
   }
 
   function handleSendGetRequest(url) {
-    console.log('sending get request to ' + url);
+    console.log('Sending get request to ' + url);
 
     var http = new XMLHttpRequest();
     http.open('GET', url, false );
@@ -22,7 +22,7 @@
     var requestUrl = hostUrl + '/' + pinNumber + '/' + action;
     var response   = handleSendGetRequest(requestUrl);
 
-    alert('server said: ' + response);
+    alert(response);
   }
 </script>
 
