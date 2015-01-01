@@ -7,7 +7,7 @@ var pinValue = 0;
 function writePin(pinNumber, value) {
   gpio.open(pinNumber, "output", function(err) {
     gpio.write(pinNumber, value, function() {
-      console.log('wrote ' + value + ' to ' + pinNumber);
+      console.log('Wrote ' + value + ' to ' + pinNumber);
       gpio.close(pinNumber);
     });
   });
@@ -26,19 +26,19 @@ var server = http.createServer(function(request, response) {
   switch (action) {
     case 'on':
       writePin(pinNumber, 1);
-      response.write('set ' + pinNumber + ' on');
+      response.write('Set pin ' + pinNumber + ' to on.');
 	  response.end();
       break;
 
     case 'off':
       writePin(pinNumber, 0);
-      response.write('set ' + pinNumber + ' off');
+      response.write('Set pin ' + pinNumber + ' to off.');
 	  response.end();
       break;
 
     case 'toggle':
       togglePin(pinNumber);
-      response.write('set ' + pinNumber + ' to ' + pinValue);
+      response.write('Set pin ' + pinNumber + ' to ' + pinValue);
 	  response.end();
       break;
 
@@ -46,7 +46,7 @@ var server = http.createServer(function(request, response) {
 	  fs.createReadStream(__dirname + '/control.html').pipe(response);
   }
   } catch(e) {
-    response.write('invalid pin number');
+    response.write('Invalid pin number.');
 	response.end();
   }
 });
