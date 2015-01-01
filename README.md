@@ -1,5 +1,5 @@
 ras-pi-node
 =============
 
-some node.js scripts and stuff for the raspberry pi
+Simple node.js script to toggle pins on a raspberry pi.
 
